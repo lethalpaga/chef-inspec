@@ -2,10 +2,6 @@
 # Cookbook Name:: chef-inspec
 # Recipe:: default
 #
-# Copyright 2017, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
 chef_gem 'inspec' do
   version node['inspec']['version'] if node['inspec']['version'] != 'latest'
   compile_time true
