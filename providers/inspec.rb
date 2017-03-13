@@ -10,8 +10,7 @@ action :check do
         res = inspec_run(@current_resource.profile, @current_resource.options)
         if res != 0
             Chef::Log.error "Compliance check failed"
-            fail "Compliance check failed" if node['inspec']['fail_on_error']
-
+            fail "Compliance check failed" if @new_resource.fail_on_error
         end
         @new_resource.result = res
         @new_resource.updated_by_last_action(true)

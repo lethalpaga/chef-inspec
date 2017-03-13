@@ -17,5 +17,6 @@ end
 node['inspec']['profiles'].each do |profile|
   chef_inspec_inspec profile do
     options node['inspec']['options']
+    fail_on_error node['inspec']['fail_on_error']
   end
 end
