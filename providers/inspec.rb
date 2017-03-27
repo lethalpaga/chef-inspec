@@ -9,7 +9,7 @@ action :check do
     converge_by("Running Inspec check.") do
         res = inspec_run(@current_resource.profile, @current_resource.options)
         if res != 0
-            Chef::Log.error "Compliance check failed"
+            Chef::Log.error "Compliance check failed. #{@new_resource.fail_on_error ? "Failing" : "Not failing"} Chef run"
             fail "Compliance check failed" if @new_resource.fail_on_error
         end
         @new_resource.result = res
