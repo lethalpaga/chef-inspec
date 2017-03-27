@@ -11,8 +11,16 @@ chef_gem 'inspec' do
 end
 
 node['inspec']['profiles'].each do |profile|
+  # Dummy resource to run the profiles at the end of the run
+  # TODO: surely there is a better way
+  chef_inspec_always_run 'run_profiles' do
+    notifies :check, "chef_inspec_inspec[#{profile}]", :delayed
+  end
+
   chef_inspec_inspec profile do
     options node['inspec']['options']
     fail_on_error node['inspec']['fail_on_error']
+
+    action :nothing
   end
 end
